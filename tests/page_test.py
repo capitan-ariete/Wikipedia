@@ -145,6 +145,11 @@ class TestPage(unittest.TestCase):
     """Test the full HTML method."""
     self.assertEqual(self.celtuce.html(), mock_data['data']["celtuce.html"])
 
+  def test_langlinks(self):
+    """Test the list of langlinks to Wikipedia pages."""
+    self.assertEqual(self.celtuce.langlinks, mock_data['data']["celtuce.langlinks"])
+    self.assertEqual(self.cyclone.langlinks, mock_data['data']["cyclone.langlinks"])
+
   def test_sections(self):
     """Test the list of section titles."""
     self.assertEqual(sorted(self.cyclone.sections), mock_data['data']["cyclone.sections"])

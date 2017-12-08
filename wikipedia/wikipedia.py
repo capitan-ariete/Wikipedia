@@ -633,6 +633,26 @@ class WikipediaPage(object):
     return self._categories
 
   @property
+  def langlinks(self):
+    '''
+    Gets a list of all language links from the provided pages to other languages.
+
+    https://www.mediawiki.org/wiki/API:Langlinks
+    '''
+
+    if not getattr(self, '_langlinks', False):
+      query_params = {
+        'prop': 'langlinks',
+        'lllimit': 'max',
+      }
+      query_params.update(self.__title_query_param)
+
+      request = _wiki_request(query_params)
+      self._langlinks = {link['lang']: link['*'] for link in request['query']['pages'][self.pageid]['langlinks']}
+
+    return self._langlinks
+
+  @property
   def sections(self):
     '''
     List of section titles from the table of contents on the page.
